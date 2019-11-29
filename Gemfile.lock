@@ -2,12 +2,14 @@ PATH
   remote: .
   specs:
     kawaii_text (0.1.0)
+      rmagick
 
 GEM
   remote: https://rubygems.org/
   specs:
     minitest (5.13.0)
     rake (10.5.0)
+    rmagick (4.0.0)
 
 PLATFORMS
   ruby
