@@ -25,6 +25,7 @@ module KawaiiText
       generate_text_layer
       generate_offset_text_layer
       merge_text_layers
+      merge_text_and_background_layers
     end
 
     private
@@ -86,7 +87,15 @@ module KawaiiText
       `#{command.join " "}`
     end
 
-      exec(command.join " ")
+    def merge_text_and_background_layers
+      command = ["composite"]
+      command << "-dissolve 100"
+      command << "-gravity center"
+      command << "#{@working_directory}/op3.png"
+      command << "#{@background_filepath}"
+      command << "-alpha Set"
+      command << "#{@working_directory}/op4.png"
+      `#{command.join " "}`
     end
   end
 end
