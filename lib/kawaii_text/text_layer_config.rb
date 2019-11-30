@@ -8,6 +8,7 @@ module KawaiiText
       config.stroke_width = 3
       config.stroke_color = "none"
       config.stroke_fill_color = "none"
+      config
     end
   end
 
@@ -15,6 +16,7 @@ module KawaiiText
     def self.default
       config = TextLayerConfig.default
       config.stroke_fill_color = "white"
+      config
     end
   end
 
@@ -22,6 +24,7 @@ module KawaiiText
     def self.default
       config = TextLayerConfig.default
       config.stroke_color = "green"
+      config
     end
   end
 end
