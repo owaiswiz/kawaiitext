@@ -29,6 +29,7 @@ module KawaiiText
       generate_offset_text_layer
       merge_text_layers
       merge_text_and_background_layers
+      cleanup
     end
 
     private
@@ -99,6 +100,16 @@ module KawaiiText
       command << "\"#{file_output_path}\""
 
       `#{command.join " "}`
+    end
+
+    def cleanup
+      self.class.delete_if_exists "#{@working_directory}/#{PRIMARY_TEXT_LAYER_FILENAME}.png"
+      self.class.delete_if_exists "#{@working_directory}/#{OFFSET_TEXT_LAYER_FILENAME}.png"
+      self.class.delete_if_exists "#{@working_directory}/#{MERGED_TEXT_LAYER_FILENAME}.png"
+    end
+
+    def self.delete_if_exists file_path
+      File.delete file_path if File.exists? file_path
     end
   end
 end

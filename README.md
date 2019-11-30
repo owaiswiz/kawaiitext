@@ -1,4 +1,6 @@
 # KawaiiText
+[![Gem Version](https://badge.fury.io/rb/kawaii_text.svg)](https://badge.fury.io/rb/ds18b20) [![Gem](https://img.shields.io/gem/dt/kawaii_text.svg?colorB=brightgreen&maxAge=3600)]() 
+
 
 ## What is this ?
 Its a ruby gem to render your text to an image with fancy fonts and some effects with backgrounds. Might be suitable if
