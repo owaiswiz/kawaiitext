@@ -12,7 +12,7 @@ module KawaiiText
 
     def initialize text:, font_path: nil, backgrounds_folder: nil, background_filepath: nil, supported_formats: nil, working_directory: nil, primary_text_layer_config: nil, offset_text_layer_config: nil
       @text = text
-      @font_path = font_path
+      @font_path = font_path || get_random_font_from_fonts_folder
       @backgrounds_folder = backgrounds_folder || KawaiiText.backgrounds_dir
       @background_filepath = background_filepath
       @working_directory = working_directory
@@ -39,6 +39,11 @@ module KawaiiText
     def get_random_background_from_backgrounds_folder
       files = Dir["#{@backgrounds_folder}/**/**.{#{@supported_formats.join(',')}}"]
       files.sample
+    end
+
+    def get_random_font_from_fonts_folder
+      fonts = Dir["#{KawaiiText.fonts_dir}/**/**.ttf"]
+      fonts.sample
     end
 
     def generate_primary_text_layer 
