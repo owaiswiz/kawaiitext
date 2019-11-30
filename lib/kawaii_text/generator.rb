@@ -8,16 +8,16 @@ module KawaiiText
     PRIMARY_TEXT_LAYER_FILENAME = "primary"
     OFFSET_TEXT_LAYER_FILENAME = "offset"
     MERGED_TEXT_LAYER_FILENAME = "merged"
-    FINAL_OUTUT_FILENAME = "output"
 
-    def initialize text:, font_path: nil, backgrounds_folder: nil, background_filepath: nil, supported_formats: nil, working_directory: nil, primary_text_layer_config: nil, offset_text_layer_config: nil
+    def initialize text:, font_path: nil, backgrounds_folder: nil, background_filepath: nil, supported_formats: nil, working_directory: nil, primary_text_layer_config: nil, offset_text_layer_config: nil, output_file_name: nil
       @text = text
       @font_path = font_path || get_random_font_from_fonts_folder
       @backgrounds_folder = backgrounds_folder || KawaiiText.backgrounds_dir
       @background_filepath = background_filepath
       @working_directory = working_directory
       @supported_formats = supported_formats || SUPPORTED_BACKGROUND_FILEFORMATS
-      @working_directory = working_directory || "live_image_preview"
+      @working_directory = working_directory || "."
+      @output_file_name = output_file_name || "output"
 
       @primary_text_layer_config = primary_text_layer_config || PrimaryTextLayerConfig.default
       @offset_text_layer_config = offset_text_layer_config || OffsetTextLayerConfig.default
@@ -42,7 +42,7 @@ module KawaiiText
     end
 
     def get_random_font_from_fonts_folder
-      fonts = Dir["#{KawaiiText.fonts_dir}/**/**.ttf"]
+      fonts = Dir["#{KawaiiText.fonts_dir}/**/**.{ttf,TTF}"]
       fonts.sample
     end
 
@@ -84,7 +84,7 @@ module KawaiiText
     def merge_text_and_background_layers
       file_1_path = "#{@working_directory}/#{MERGED_TEXT_LAYER_FILENAME}.png" 
       file_2_path = @background_filepath
-      file_output_path = "#{@working_directory}/#{FINAL_OUTUT_FILENAME}.png"
+      file_output_path = "#{@working_directory}/#{@output_file_name}.png"
       merge_images file_1_path: file_1_path, file_2_path: file_2_path, file_output_path: file_output_path
     end
 
