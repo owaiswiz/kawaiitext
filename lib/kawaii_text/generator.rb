@@ -61,15 +61,15 @@ module KawaiiText
       command = ["convert"]
       command << "-size #{text_layer_width}x#{text_layer_height}"
       command << "-background transparent"
-      command << "-font #{@font_path}" if @font_path
+      command << "-font \"#{@font_path}\"" if @font_path
       command << "-gravity center"
       command << "-pointsize #{text_layer_config.pointsize}"
       command << "-strokewidth #{text_layer_config.stroke_width}"
-      command << "-stroke #{text_layer_config.stroke_color}"
-      command << "-fill #{text_layer_config.stroke_fill_color}"
+      command << "-stroke \"#{text_layer_config.stroke_color}\""
+      command << "-fill \"#{text_layer_config.stroke_fill_color}\""
       command << "-interline-spacing #{text_layer_config.pointsize/2}"
       command << "caption:\"#{@text}\""
-      command << "#{@working_directory}/#{output_file_name}.png"
+      command << "\"#{@working_directory}/#{output_file_name}.png\""
 
       `#{command.join " "}`
     end
@@ -93,10 +93,10 @@ module KawaiiText
       command << "-dissolve 100"
       command << "-gravity center"
       command << "-geometry #{offset}" if offset
-      command << file_1_path
-      command << file_2_path
+      command << "\"#{file_1_path}\""
+      command << "\"#{file_2_path}\""
       command << "-alpha Set"
-      command << file_output_path
+      command << "\"#{file_output_path}\""
 
       `#{command.join " "}`
     end
