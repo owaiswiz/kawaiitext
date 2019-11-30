@@ -23,6 +23,8 @@ module KawaiiText
       @background_image = open_image @background_filepath
 
       generate_text_layer
+      generate_offset_text_layer
+      merge_text_layers
     end
 
     private
@@ -52,9 +54,35 @@ module KawaiiText
 
       `#{command.join " "}`
     end
+
+    def generate_offset_text_layer
+      text_layer_width = (@background_image.columns / BACKGROUND_TO_TEXT_LAYER_WIDTH_RATIO).round
+      text_layer_height = (@background_image.rows / BACKGROUND_TO_TEXT_LAYER_HEIGHT_RATIO).round
+
+      command = ["convert"]
+      command << "-size #{text_layer_width}x#{text_layer_height}"
+      command << "-gravity center"
+      command << "-font #{@font_path}" if @font_path
+      command << "-background transparent"
+      command << "-pointsize #{@pointsize}"
+      command << "-strokewidth #{@stroke_width}"
+      command << "-stroke #{@stroke_color}"
+      command << "-fill #{@fill_color}"
       command << "-interline-spacing #{@pointsize/2}"
       command << "caption:\"#{@text}\""
-      command << "live_image_preview/op.png"
+      command << "#{@working_directory}/op2.png"
+      `#{command.join " "}`
+    end
+
+    def merge_text_layers
+      command = ["composite"]
+      command << "-dissolve 100"
+      command << "-gravity North"
+      command << "-geometry -3+4"
+      command << "#{@working_directory}/op.png"
+      command << "#{@working_directory}/op2.png"
+      command << "-alpha Set"
+      command << "#{@working_directory}/op3.png"
       `#{command.join " "}`
     end
 
